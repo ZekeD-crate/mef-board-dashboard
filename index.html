@@ -164,7 +164,7 @@ a{color:var(--gm);}
 <div class="main">
   <div class="overall" id="overallPanel">
     <div class="overall-num">
-      <div class="overall-score" style="color:#E67E22">32</div>
+      <div class="overall-score" style="color:#E67E22">33</div>
       <div class="overall-denom">/ 100</div>
     </div>
     <div class="overall-right">
@@ -172,7 +172,7 @@ a{color:var(--gm);}
       <div class="overall-desc">Weighted composite across 5 categories &nbsp;·&nbsp; Horizon 1 target: <strong>75/100</strong> by Q4 2028</div>
       <div class="bar-target-wrap">
         <div class="bar-track">
-          <div class="bar-fill" style="width:32%;background:#E67E22"></div>
+          <div class="bar-fill" style="width:33%;background:#E67E22"></div>
         </div>
         <div class="bar-target-line" style="left:75%" title="H1 Target"></div>
         <div class="bar-target-label" style="left:75%">Target 75</div>
@@ -186,20 +186,20 @@ a{color:var(--gm);}
         <div class="cat-weight">Wt: 25%</div>
       </div>
       <div class="cat-score-row">
-        <div class="cat-score-big stc1">1.0</div>
-        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">5.0 pts weighted</span></div>
+        <div class="cat-score-big stc1">1.2</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">6.0 pts weighted</span></div>
         <div class="rag-dot" style="background:#C0392B;margin-left:auto"></div>
         <div class="trend-arrow">—</div>
       </div>
       <div class="bar-target-wrap">
         <div class="cat-bar-track">
-          <div class="cat-bar-fill" style="width:20%;background:#C0392B"></div>
+          <div class="cat-bar-fill" style="width:24%;background:#C0392B"></div>
         </div>
       </div>
-      <button class="kpi-toggle" onclick="toggleKPI(this)">Hide KPIs ▲</button>
-      <div class="kpi-list open"><div class="kpi-row">
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Show KPIs ▼</button>
+      <div class="kpi-list"><div class="kpi-row">
         <div class="kpi-label">Succession plan: adopted and tested</div>
-        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-badge sc2">2</div>
         <div class="kpi-target">/ 4</div>
         <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
       </div><div class="kpi-row">
@@ -322,8 +322,8 @@ a{color:var(--gm);}
           <div class="cat-bar-fill" style="width:55%;background:#E67E22"></div>
         </div>
       </div>
-      <button class="kpi-toggle" onclick="toggleKPI(this)">Hide KPIs ▲</button>
-      <div class="kpi-list open"><div class="kpi-row">
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Show KPIs ▼</button>
+      <div class="kpi-list"><div class="kpi-row">
         <div class="kpi-label">Elephant &amp; wildlife: monitoring systems operational</div>
         <div class="kpi-badge sc3">3</div>
         <div class="kpi-target">/ 4</div>
@@ -410,7 +410,7 @@ a{color:var(--gm);}
   <div class="footer">MEF Strategic Review 2026–2030 &nbsp;·&nbsp; Confidential — Board use only &nbsp;·&nbsp; <a href="https://zeked-crate.github.io/mef-board-dashboard/" style="color:var(--gm)">zeked-crate.github.io/mef-board-dashboard</a> &nbsp;·&nbsp; Queries: <a href="mailto:zeke@mountelgonfoundation.org.uk" style="color:var(--gm)">zeke@mountelgonfoundation.org.uk</a></div>
 </div>
 
-<button class="admin-btn" id="adminBtn" onclick="openAdmin()">🔒 Admin</button>
+<button class="admin-btn" id="adminBtn" onclick="openAdmin()">✎ Update Panel</button>
 
 <!-- Password modal -->
 <div class="overlay" id="pwOverlay">
@@ -444,7 +444,7 @@ a{color:var(--gm);}
       <div class="up-cat-name">Leadership &amp; Governance (25%)</div><div class="up-kpi-row">
         <div class="up-kpi-lbl">Succession plan: adopted and tested</div>
         <div class="up-kpi-ctrl">
-          <select id="kpi_0_0" onchange="draftKPI(0,0,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+          <select id="kpi_0_0" onchange="draftKPI(0,0,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
         </div>
         <textarea class="up-note" id="note_0_0" rows="1" placeholder="Note (optional)" onchange="draftNote(0,0,this.value)">Baseline — no plan in place</textarea>
       </div><div class="up-kpi-row">
@@ -615,11 +615,18 @@ a{color:var(--gm);}
       <h4>Admin Password</h4>
       <label class="up-lbl">Current admin password</label>
       <input type="text" class="up-sel" id="pwChange" value="MEF2026" onchange="draft.adminPassword=this.value" placeholder="Change password here">
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">Password is stored in the exported HTML file. Keep this file secure.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Password is stored in the published file. Keep this file secure.</div>
+    </div>
+    <div class="up-section">
+      <h4>GitHub Publishing</h4>
+      <label class="up-lbl">Personal Access Token (classic, repo scope)</label>
+      <input type="password" class="up-sel" id="ghToken" value="" onchange="localStorage.setItem('mef_gh_token',this.value)" placeholder="ghp_…">
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Stored in <strong>your browser only</strong> — never committed to GitHub. You only need to enter this once per browser.</div>
     </div>
     <div class="up-actions">
-      <button class="btn-export" onclick="exportUpdated()">⇩ Export Updated Dashboard</button>
-      <div class="export-note">Exports a new .html file with your changes embedded. Upload it to OneDrive to replace the current version for all Board members.</div>
+      <button class="btn-export" onclick="publishToGitHub()" id="publishBtn">▶ Save &amp; Publish to GitHub</button>
+      <div class="export-note" id="publishStatus">Updates go live within ~60 seconds. Board members just refresh their browser — no file upload needed.</div>
+      <button class="btn-export" onclick="exportUpdated()" style="margin-top:8px;background:#555;font-size:12px;padding:8px 16px;">⇩ Download as backup</button>
     </div></div>
 </div>
 
@@ -650,7 +657,7 @@ const DATA = {
           "label": "Succession plan: adopted and tested",
           "target": 4,
           "history": [
-            2
+            1
           ],
           "notes": [
             "Baseline — no plan in place"
@@ -1475,4 +1482,4 @@ render();
 </script>
 
 
-</body><grammarly-desktop-integration data-grammarly-shadow-root="true" style="visibility: visible !important;"></grammarly-desktop-integration></html>
+<grammarly-desktop-integration data-grammarly-shadow-root="true" style="visibility: visible !important;"></grammarly-desktop-integration></body></html>
