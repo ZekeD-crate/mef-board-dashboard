@@ -148,7 +148,7 @@ a{color:var(--gm);}
 </head>
 <body data-new-gr-c-s-check-loaded="9.99.0" data-gr-ext-installed="">
 
-<div class="edit-banner show" id="editBanner">✎ ADMIN EDIT MODE — changes are NOT saved until you click "Export Updated Dashboard"</div>
+<div class="edit-banner" id="editBanner">✎ ADMIN EDIT MODE — click "Save &amp; Publish to GitHub" when done</div>
 
 <div class="hdr">
   <div>
@@ -410,7 +410,7 @@ a{color:var(--gm);}
   <div class="footer">MEF Strategic Review 2026–2030 &nbsp;·&nbsp; Confidential — Board use only &nbsp;·&nbsp; <a href="https://zeked-crate.github.io/mef-board-dashboard/" style="color:var(--gm)">zeked-crate.github.io/mef-board-dashboard</a> &nbsp;·&nbsp; Queries: <a href="mailto:zeke@mountelgonfoundation.org.uk" style="color:var(--gm)">zeke@mountelgonfoundation.org.uk</a></div>
 </div>
 
-<button class="admin-btn armed" id="adminBtn" onclick="openAdmin()">✎ Update Panel</button>
+<button class="admin-btn" id="adminBtn" onclick="openAdmin()">🔒 Admin</button>
 
 <!-- Password modal -->
 <div class="overlay" id="pwOverlay">
@@ -427,7 +427,7 @@ a{color:var(--gm);}
 </div>
 
 <!-- Update panel -->
-<div class="up-panel open" id="upPanel">
+<div class="up-panel" id="upPanel">
   <div class="up-hdr">
     <h3>🖉 Quarterly Update Panel</h3>
     <button class="up-close" onclick="lockAdmin()">🔒 Lock &amp; Close</button>
@@ -1351,7 +1351,20 @@ function buildUpdatedHTML() {
   draft.lastUpdated = document.getElementById('lastUpdated').value || draft.lastUpdated;
   draft.adminPassword = document.getElementById('pwChange').value || draft.adminPassword;
 
+  // Temporarily collapse admin UI so the exported file opens in read-only state
+  const banner = document.getElementById('editBanner');
+  const btn    = document.getElementById('adminBtn');
+  const panel  = document.getElementById('upPanel');
+  banner.classList.remove('show');
+  btn.classList.remove('armed');
+  panel.classList.remove('open');
+
   let html = document.documentElement.outerHTML;
+
+  // Restore admin UI for this session
+  banner.classList.add('show');
+  btn.classList.add('armed');
+  panel.classList.add('open');
   const marker1 = '/* BEGIN_DATA */';
   const marker2 = '/* END_DATA */';
   const start = html.indexOf(marker1);
