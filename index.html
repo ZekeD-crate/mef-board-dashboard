@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEF Board KPI Dashboard</title>
@@ -148,9 +146,9 @@ a{color:var(--gm);}
 }
 </style>
 </head>
-<body>
+<body data-new-gr-c-s-check-loaded="9.99.0" data-gr-ext-installed="">
 
-<div class="edit-banner" id="editBanner">&#9998; ADMIN EDIT MODE — changes are NOT saved until you click "Export Updated Dashboard"</div>
+<div class="edit-banner show" id="editBanner">✎ ADMIN EDIT MODE — changes are NOT saved until you click "Export Updated Dashboard"</div>
 
 <div class="hdr">
   <div>
@@ -159,29 +157,267 @@ a{color:var(--gm);}
   </div>
   <div class="hdr-right">
     <div class="q-badge" id="qBadge">Q3 2026</div>
-    <div class="hdr-meta">Last updated: <span id="lastUpdatedTxt"></span></div>
+    <div class="hdr-meta">Last updated: <span id="lastUpdatedTxt">September 2026</span></div>
   </div>
 </div>
 
 <div class="main">
-  <div class="overall" id="overallPanel"></div>
-  <div class="cat-grid" id="catGrid"></div>
+  <div class="overall" id="overallPanel">
+    <div class="overall-num">
+      <div class="overall-score" style="color:#E67E22">32</div>
+      <div class="overall-denom">/ 100</div>
+    </div>
+    <div class="overall-right">
+      <div class="overall-title">Overall Institutional Health Index</div>
+      <div class="overall-desc">Weighted composite across 5 categories &nbsp;·&nbsp; Horizon 1 target: <strong>75/100</strong> by Q4 2028</div>
+      <div class="bar-target-wrap">
+        <div class="bar-track">
+          <div class="bar-fill" style="width:32%;background:#E67E22"></div>
+        </div>
+        <div class="bar-target-line" style="left:75%" title="H1 Target"></div>
+        <div class="bar-target-label" style="left:75%">Target 75</div>
+      </div>
+      <div class="bar-labels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      <div class="gates-summary" style="margin-top:14px"><span class="gpill gpill-ns">7 Not Started</span></div>
+    </div></div>
+  <div class="cat-grid" id="catGrid"><div class="cat-card border-red">
+      <div class="cat-head">
+        <div class="cat-name">Leadership &amp; Governance</div>
+        <div class="cat-weight">Wt: 25%</div>
+      </div>
+      <div class="cat-score-row">
+        <div class="cat-score-big stc1">1.0</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">5.0 pts weighted</span></div>
+        <div class="rag-dot" style="background:#C0392B;margin-left:auto"></div>
+        <div class="trend-arrow">—</div>
+      </div>
+      <div class="bar-target-wrap">
+        <div class="cat-bar-track">
+          <div class="cat-bar-fill" style="width:20%;background:#C0392B"></div>
+        </div>
+      </div>
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Hide KPIs ▲</button>
+      <div class="kpi-list open"><div class="kpi-row">
+        <div class="kpi-label">Succession plan: adopted and tested</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Decision rights: distributed and operating</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Board composition: Kenyan representation and diversity</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Governance terms of reference: in operation</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 5</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Key-person dependencies: eliminated</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div></div></div><div class="cat-card border-red">
+      <div class="cat-head">
+        <div class="cat-name">Financial Resilience</div>
+        <div class="cat-weight">Wt: 25%</div>
+      </div>
+      <div class="cat-score-row">
+        <div class="cat-score-big stc2">1.6</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">8.0 pts weighted</span></div>
+        <div class="rag-dot" style="background:#C0392B;margin-left:auto"></div>
+        <div class="trend-arrow">—</div>
+      </div>
+      <div class="bar-target-wrap">
+        <div class="cat-bar-track">
+          <div class="cat-bar-fill" style="width:32%;background:#C0392B"></div>
+        </div>
+      </div>
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Show KPIs ▼</button>
+      <div class="kpi-list"><div class="kpi-row">
+        <div class="kpi-label">Unrestricted reserves vs Board-agreed floor</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Funder concentration: under Board-agreed limit</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Income trend: year-on-year movement</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Unrestricted income as % of total</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">New institutional funders: in pipeline or secured</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div></div></div><div class="cat-card border-red">
+      <div class="cat-head">
+        <div class="cat-name">Kenya Operations &amp; Field</div>
+        <div class="cat-weight">Wt: 20%</div>
+      </div>
+      <div class="cat-score-row">
+        <div class="cat-score-big stc1">1.4</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">5.6 pts weighted</span></div>
+        <div class="rag-dot" style="background:#C0392B;margin-left:auto"></div>
+        <div class="trend-arrow">—</div>
+      </div>
+      <div class="bar-target-wrap">
+        <div class="cat-bar-track">
+          <div class="cat-bar-fill" style="width:28%;background:#C0392B"></div>
+        </div>
+      </div>
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Show KPIs ▼</button>
+      <div class="kpi-list"><div class="kpi-row">
+        <div class="kpi-label">EAWLS transition: progress vs timetable</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Scout duty-of-care: no open HIGH/CRITICAL findings</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 5</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Legal employer: clarity and compliance</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 5</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Scout career pathway: operational</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Field infrastructure baseline: complete and actioned</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div></div></div><div class="cat-card border-amber">
+      <div class="cat-head">
+        <div class="cat-name">Conservation Outcomes</div>
+        <div class="cat-weight">Wt: 20%</div>
+      </div>
+      <div class="cat-score-row">
+        <div class="cat-score-big stc3">2.8</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">11.0 pts weighted</span></div>
+        <div class="rag-dot" style="background:#E67E22;margin-left:auto"></div>
+        <div class="trend-arrow">—</div>
+      </div>
+      <div class="bar-target-wrap">
+        <div class="cat-bar-track">
+          <div class="cat-bar-fill" style="width:55%;background:#E67E22"></div>
+        </div>
+      </div>
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Hide KPIs ▲</button>
+      <div class="kpi-list open"><div class="kpi-row">
+        <div class="kpi-label">Elephant &amp; wildlife: monitoring systems operational</div>
+        <div class="kpi-badge sc3">3</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Habitat &amp; connectivity: protection and restoration on track</div>
+        <div class="kpi-badge sc3">3</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Human-wildlife conflict: mitigation programme effectiveness</div>
+        <div class="kpi-badge sc3">3</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Community coexistence: engagement and benefit metrics</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div></div></div><div class="cat-card border-red">
+      <div class="cat-head">
+        <div class="cat-name">Communications &amp; Partnerships</div>
+        <div class="cat-weight">Wt: 10%</div>
+      </div>
+      <div class="cat-score-row">
+        <div class="cat-score-big stc1">1.3</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">2.5 pts weighted</span></div>
+        <div class="rag-dot" style="background:#C0392B;margin-left:auto"></div>
+        <div class="trend-arrow">—</div>
+      </div>
+      <div class="bar-target-wrap">
+        <div class="cat-bar-track">
+          <div class="cat-bar-fill" style="width:25%;background:#C0392B"></div>
+        </div>
+      </div>
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Show KPIs ▼</button>
+      <div class="kpi-list"><div class="kpi-row">
+        <div class="kpi-label">Brand architecture: implemented consistently</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Communications: not founder-dependent</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Key partnership agreements: formalised</div>
+        <div class="kpi-badge sc2">2</div>
+        <div class="kpi-target">/ 4</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div><div class="kpi-row">
+        <div class="kpi-label">Digital and field content pipeline: operational</div>
+        <div class="kpi-badge sc1">1</div>
+        <div class="kpi-target">/ 3</div>
+        <div class="kpi-trend"><span style="color:#9CA3AF">—</span></div>
+      </div></div></div></div>
   <div class="gates-section">
     <div class="sec-title">Horizon 2 Readiness Gates</div>
     <div class="sec-sub">All seven criteria must be met before the Board votes to trigger Horizon 2 (Oct 2028). Updated quarterly alongside KPIs.</div>
-    <div class="gates-grid" id="gatesGrid"></div>
+    <div class="gates-grid" id="gatesGrid"><div class="gate-card ns">
+      <div class="gate-name">Leadership &amp; Governance</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">ED/CEO filled and operating 12+ months; no single-person dependency on decisions or external relationships; governance ToR in operation.</div></div><div class="gate-card ns">
+      <div class="gate-name">Financial Resilience</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">Unrestricted reserves at or above Board floor; no single funder exceeds concentration limit; pilot expansion funding ring-fenced from core programme.</div></div><div class="gate-card ns">
+      <div class="gate-name">Kenya Institutional Architecture</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">Legal and institutional pathway for Kenya operations documented and agreed with EAWLS; no ambiguity in employment, assets or financial authority.</div></div><div class="gate-card ns">
+      <div class="gate-name">Field Workforce &amp; Duty of Care</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">No open HIGH or CRITICAL duty-of-care findings; legal employer clearly established; career pathway operating for at least one annual cycle.</div></div><div class="gate-card ns">
+      <div class="gate-name">Impact &amp; Evidence</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">Core Kenya programme meeting agreed outcome indicators on this Board dashboard; management decisions documented as evidence-informed; MEL system operational.</div></div><div class="gate-card ns">
+      <div class="gate-name">Partnerships &amp; Community</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">Formal agreements in place with KWS, KFS and EAWLS; community consultation and feedback mechanisms operational; no partnership flagged as risk or constraint.</div></div><div class="gate-card ns">
+      <div class="gate-name">Communications &amp; Brand</div>
+      <div class="gate-status">Not Started</div>
+      <div class="gate-criterion">Communications capacity embedded in team and not founder-dependent; brand architecture consistent across all materials; field content pipeline independent.</div></div></div>
   </div>
   <div class="footer">MEF Strategic Review 2026–2030 &nbsp;·&nbsp; Confidential — Board use only &nbsp;·&nbsp; <a href="https://zeked-crate.github.io/mef-board-dashboard/" style="color:var(--gm)">zeked-crate.github.io/mef-board-dashboard</a> &nbsp;·&nbsp; Queries: <a href="mailto:zeke@mountelgonfoundation.org.uk" style="color:var(--gm)">zeke@mountelgonfoundation.org.uk</a></div>
 </div>
 
-<button class="admin-btn" id="adminBtn" onclick="openAdmin()">&#128274; Admin</button>
+<button class="admin-btn armed" id="adminBtn" onclick="openAdmin()">✎ Update Panel</button>
 
 <!-- Password modal -->
 <div class="overlay" id="pwOverlay">
   <div class="modal">
     <h3>Admin Access</h3>
     <p>Enter the admin password to access the quarterly update panel. Only the designated administrator should use this mode.</p>
-    <div class="modal-err" id="pwErr">Incorrect password. Please try again.</div>
+    <div class="modal-err" id="pwErr" style="display: none;">Incorrect password. Please try again.</div>
     <input type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
     <div class="modal-btns">
       <button class="btn btn-p" onclick="checkPw()">Unlock</button>
@@ -191,12 +427,200 @@ a{color:var(--gm);}
 </div>
 
 <!-- Update panel -->
-<div class="up-panel" id="upPanel">
+<div class="up-panel open" id="upPanel">
   <div class="up-hdr">
-    <h3>&#128393; Quarterly Update Panel</h3>
-    <button class="up-close" onclick="lockAdmin()">&#128274; Lock &amp; Close</button>
+    <h3>🖉 Quarterly Update Panel</h3>
+    <button class="up-close" onclick="lockAdmin()">🔒 Lock &amp; Close</button>
   </div>
-  <div class="up-body" id="upBody"></div>
+  <div class="up-body" id="upBody">
+    <div class="up-section">
+      <h4>Quarter</h4>
+      <label class="up-lbl">Updating data for:</label>
+      <select class="up-sel" id="qSel" onchange="changeQuarter(this.value)"><option value="0" selected="">Q3 2026</option></select>
+      <button class="btn btn-p" style="width:100%;margin-top:4px" onclick="addNewQuarter()">+ Add New Quarter</button>
+    </div>
+    <div class="up-section">
+      <h4>KPI Scores (1–5)</h4>
+      <div class="up-cat-name">Leadership &amp; Governance (25%)</div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Succession plan: adopted and tested</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_0_0" onchange="draftKPI(0,0,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_0_0" rows="1" placeholder="Note (optional)" onchange="draftNote(0,0,this.value)">Baseline — no plan in place</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Decision rights: distributed and operating</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_0_1" onchange="draftKPI(0,1,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_0_1" rows="1" placeholder="Note (optional)" onchange="draftNote(0,1,this.value)">All authority runs through founder and Chair</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Board composition: Kenyan representation and diversity</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_0_2" onchange="draftKPI(0,2,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_0_2" rows="1" placeholder="Note (optional)" onchange="draftNote(0,2,this.value)">No Kenyan trustee; limited diversity</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Governance terms of reference: in operation</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_0_3" onchange="draftKPI(0,3,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_0_3" rows="1" placeholder="Note (optional)" onchange="draftNote(0,3,this.value)">Not yet adopted</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Key-person dependencies: eliminated</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_0_4" onchange="draftKPI(0,4,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_0_4" rows="1" placeholder="Note (optional)" onchange="draftNote(0,4,this.value)">High dependency on founder and Chris Powles</textarea>
+      </div><div class="up-cat-name">Financial Resilience (25%)</div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Unrestricted reserves vs Board-agreed floor</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_1_0" onchange="draftKPI(1,0,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_1_0" rows="1" placeholder="Note (optional)" onchange="draftNote(1,0,this.value)">Projected negative by Dec 2026 (approx -$6k)</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Funder concentration: under Board-agreed limit</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_1_1" onchange="draftKPI(1,1,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_1_1" rows="1" placeholder="Note (optional)" onchange="draftNote(1,1,this.value)">High concentration — limit not yet set</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Income trend: year-on-year movement</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_1_2" onchange="draftKPI(1,2,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_1_2" rows="1" placeholder="Note (optional)" onchange="draftNote(1,2,this.value)">$181k (2024) → $163k (2025) → $138k (2026f)</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Unrestricted income as % of total</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_1_3" onchange="draftKPI(1,3,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_1_3" rows="1" placeholder="Note (optional)" onchange="draftNote(1,3,this.value)">Proportion not yet benchmarked</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">New institutional funders: in pipeline or secured</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_1_4" onchange="draftKPI(1,4,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_1_4" rows="1" placeholder="Note (optional)" onchange="draftNote(1,4,this.value)">None identified at baseline</textarea>
+      </div><div class="up-cat-name">Kenya Operations &amp; Field (20%)</div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">EAWLS transition: progress vs timetable</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_2_0" onchange="draftKPI(2,0,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_2_0" rows="1" placeholder="Note (optional)" onchange="draftNote(2,0,this.value)">Assessment not yet commissioned</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Scout duty-of-care: no open HIGH/CRITICAL findings</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_2_1" onchange="draftKPI(2,1,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_2_1" rows="1" placeholder="Note (optional)" onchange="draftNote(2,1,this.value)">Gaps identified; audit not yet completed</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Legal employer: clarity and compliance</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_2_2" onchange="draftKPI(2,2,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_2_2" rows="1" placeholder="Note (optional)" onchange="draftNote(2,2,this.value)">Currently ambiguous</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Scout career pathway: operational</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_2_3" onchange="draftKPI(2,3,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_2_3" rows="1" placeholder="Note (optional)" onchange="draftNote(2,3,this.value)">Not in place</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Field infrastructure baseline: complete and actioned</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_2_4" onchange="draftKPI(2,4,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_2_4" rows="1" placeholder="Note (optional)" onchange="draftNote(2,4,this.value)">Not yet systematically assessed</textarea>
+      </div><div class="up-cat-name">Conservation Outcomes (20%)</div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Elephant &amp; wildlife: monitoring systems operational</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_3_0" onchange="draftKPI(3,0,this.value)"><option value="1">1 – Critical</option><option value="2">2 – Poor</option><option value="3" selected="">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_3_0" rows="1" placeholder="Note (optional)" onchange="draftNote(3,0,this.value)">Core strength — collaring and field intelligence active</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Habitat &amp; connectivity: protection and restoration on track</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_3_1" onchange="draftKPI(3,1,this.value)"><option value="1">1 – Critical</option><option value="2">2 – Poor</option><option value="3" selected="">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_3_1" rows="1" placeholder="Note (optional)" onchange="draftNote(3,1,this.value)">Active programme underway</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Human-wildlife conflict: mitigation programme effectiveness</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_3_2" onchange="draftKPI(3,2,this.value)"><option value="1">1 – Critical</option><option value="2">2 – Poor</option><option value="3" selected="">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_3_2" rows="1" placeholder="Note (optional)" onchange="draftNote(3,2,this.value)">Beehive fences and community interventions active</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Community coexistence: engagement and benefit metrics</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_3_3" onchange="draftKPI(3,3,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_3_3" rows="1" placeholder="Note (optional)" onchange="draftNote(3,3,this.value)">Strong relationships; no formal measurement yet</textarea>
+      </div><div class="up-cat-name">Communications &amp; Partnerships (10%)</div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Brand architecture: implemented consistently</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_4_0" onchange="draftKPI(4,0,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_4_0" rows="1" placeholder="Note (optional)" onchange="draftNote(4,0,this.value)">MEF/MEEP/EAWLS confusion unresolved externally</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Communications: not founder-dependent</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_4_1" onchange="draftKPI(4,1,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_4_1" rows="1" placeholder="Note (optional)" onchange="draftNote(4,1,this.value)">Very high founder dependency</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Key partnership agreements: formalised</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_4_2" onchange="draftKPI(4,2,this.value)"><option value="1">1 – Critical</option><option value="2" selected="">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_4_2" rows="1" placeholder="Note (optional)" onchange="draftNote(4,2,this.value)">KWS/KFS relationships strong but informal</textarea>
+      </div><div class="up-kpi-row">
+        <div class="up-kpi-lbl">Digital and field content pipeline: operational</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_4_3" onchange="draftKPI(4,3,this.value)"><option value="1" selected="">1 – Critical</option><option value="2">2 – Poor</option><option value="3">3 – Developing</option><option value="4">4 – Good</option><option value="5">5 – Strong</option></select>
+        </div>
+        <textarea class="up-note" id="note_4_3" rows="1" placeholder="Note (optional)" onchange="draftNote(4,3,this.value)">Underdeveloped</textarea>
+      </div>
+    </div>
+    <div class="up-section">
+      <h4>Readiness Gate Status</h4>
+      <div class="up-kpi-row">
+      <div class="up-kpi-lbl">Leadership &amp; Governance</div>
+      <select class="up-sel" id="gate_0" onchange="draftGate(0,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div><div class="up-kpi-row">
+      <div class="up-kpi-lbl">Financial Resilience</div>
+      <select class="up-sel" id="gate_1" onchange="draftGate(1,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div><div class="up-kpi-row">
+      <div class="up-kpi-lbl">Kenya Institutional Architecture</div>
+      <select class="up-sel" id="gate_2" onchange="draftGate(2,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div><div class="up-kpi-row">
+      <div class="up-kpi-lbl">Field Workforce &amp; Duty of Care</div>
+      <select class="up-sel" id="gate_3" onchange="draftGate(3,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div><div class="up-kpi-row">
+      <div class="up-kpi-lbl">Impact &amp; Evidence</div>
+      <select class="up-sel" id="gate_4" onchange="draftGate(4,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div><div class="up-kpi-row">
+      <div class="up-kpi-lbl">Partnerships &amp; Community</div>
+      <select class="up-sel" id="gate_5" onchange="draftGate(5,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div><div class="up-kpi-row">
+      <div class="up-kpi-lbl">Communications &amp; Brand</div>
+      <select class="up-sel" id="gate_6" onchange="draftGate(6,this.value)"><option value="not_started" selected="">Not Started</option><option value="in_progress">In Progress</option><option value="at_risk">At Risk</option><option value="met">Met ✓</option></select>
+    </div>
+    </div>
+    <div class="up-section">
+      <h4>Dashboard Metadata</h4>
+      <label class="up-lbl">Last Updated (shown in header)</label>
+      <input type="text" class="up-sel" id="lastUpdated" value="September 2026" onchange="draft.lastUpdated=this.value" placeholder="e.g. December 2026">
+    </div>
+    <div class="up-section">
+      <h4>Admin Password</h4>
+      <label class="up-lbl">Current admin password</label>
+      <input type="text" class="up-sel" id="pwChange" value="MEF2026" onchange="draft.adminPassword=this.value" placeholder="Change password here">
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Password is stored in the exported HTML file. Keep this file secure.</div>
+    </div>
+    <div class="up-actions">
+      <button class="btn-export" onclick="exportUpdated()">⇩ Export Updated Dashboard</button>
+      <div class="export-note">Exports a new .html file with your changes embedded. Upload it to OneDrive to replace the current version for all Board members.</div>
+    </div></div>
 </div>
 
 <script>
@@ -206,21 +630,76 @@ a{color:var(--gm);}
 /* BEGIN_DATA */
 const DATA = {
   "adminPassword": "MEF2026",
+  "githubToken": "",
+  "githubRepo": "zeked-crate/mef-board-dashboard",
+  "githubFile": "index.html",
   "lastUpdated": "September 2026",
   "horizon1Target": 75,
   "horizon1End": "Q4 2028",
-  "quarters": ["Q3 2026"],
+  "quarters": [
+    "Q3 2026"
+  ],
   "categories": [
     {
       "id": "leadership",
       "name": "Leadership & Governance",
       "weight": 25,
       "kpis": [
-        { "id": "succession", "label": "Succession plan: adopted and tested", "target": 4, "history": [1], "notes": ["Baseline — no plan in place"] },
-        { "id": "decision_rights", "label": "Decision rights: distributed and operating", "target": 4, "history": [1], "notes": ["All authority runs through founder and Chair"] },
-        { "id": "board_comp", "label": "Board composition: Kenyan representation and diversity", "target": 4, "history": [1], "notes": ["No Kenyan trustee; limited diversity"] },
-        { "id": "gov_tor", "label": "Governance terms of reference: in operation", "target": 5, "history": [1], "notes": ["Not yet adopted"] },
-        { "id": "key_person", "label": "Key-person dependencies: eliminated", "target": 4, "history": [1], "notes": ["High dependency on founder and Chris Powles"] }
+        {
+          "id": "succession",
+          "label": "Succession plan: adopted and tested",
+          "target": 4,
+          "history": [
+            2
+          ],
+          "notes": [
+            "Baseline — no plan in place"
+          ]
+        },
+        {
+          "id": "decision_rights",
+          "label": "Decision rights: distributed and operating",
+          "target": 4,
+          "history": [
+            1
+          ],
+          "notes": [
+            "All authority runs through founder and Chair"
+          ]
+        },
+        {
+          "id": "board_comp",
+          "label": "Board composition: Kenyan representation and diversity",
+          "target": 4,
+          "history": [
+            1
+          ],
+          "notes": [
+            "No Kenyan trustee; limited diversity"
+          ]
+        },
+        {
+          "id": "gov_tor",
+          "label": "Governance terms of reference: in operation",
+          "target": 5,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Not yet adopted"
+          ]
+        },
+        {
+          "id": "key_person",
+          "label": "Key-person dependencies: eliminated",
+          "target": 4,
+          "history": [
+            1
+          ],
+          "notes": [
+            "High dependency on founder and Chris Powles"
+          ]
+        }
       ]
     },
     {
@@ -228,11 +707,61 @@ const DATA = {
       "name": "Financial Resilience",
       "weight": 25,
       "kpis": [
-        { "id": "reserves", "label": "Unrestricted reserves vs Board-agreed floor", "target": 4, "history": [1], "notes": ["Projected negative by Dec 2026 (approx -$6k)"] },
-        { "id": "concentration", "label": "Funder concentration: under Board-agreed limit", "target": 4, "history": [2], "notes": ["High concentration — limit not yet set"] },
-        { "id": "income_trend", "label": "Income trend: year-on-year movement", "target": 3, "history": [2], "notes": ["$181k (2024) → $163k (2025) → $138k (2026f)"] },
-        { "id": "unrestricted", "label": "Unrestricted income as % of total", "target": 3, "history": [2], "notes": ["Proportion not yet benchmarked"] },
-        { "id": "new_funders", "label": "New institutional funders: in pipeline or secured", "target": 3, "history": [1], "notes": ["None identified at baseline"] }
+        {
+          "id": "reserves",
+          "label": "Unrestricted reserves vs Board-agreed floor",
+          "target": 4,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Projected negative by Dec 2026 (approx -$6k)"
+          ]
+        },
+        {
+          "id": "concentration",
+          "label": "Funder concentration: under Board-agreed limit",
+          "target": 4,
+          "history": [
+            2
+          ],
+          "notes": [
+            "High concentration — limit not yet set"
+          ]
+        },
+        {
+          "id": "income_trend",
+          "label": "Income trend: year-on-year movement",
+          "target": 3,
+          "history": [
+            2
+          ],
+          "notes": [
+            "$181k (2024) → $163k (2025) → $138k (2026f)"
+          ]
+        },
+        {
+          "id": "unrestricted",
+          "label": "Unrestricted income as % of total",
+          "target": 3,
+          "history": [
+            2
+          ],
+          "notes": [
+            "Proportion not yet benchmarked"
+          ]
+        },
+        {
+          "id": "new_funders",
+          "label": "New institutional funders: in pipeline or secured",
+          "target": 3,
+          "history": [
+            1
+          ],
+          "notes": [
+            "None identified at baseline"
+          ]
+        }
       ]
     },
     {
@@ -240,11 +769,61 @@ const DATA = {
       "name": "Kenya Operations & Field",
       "weight": 20,
       "kpis": [
-        { "id": "eawls", "label": "EAWLS transition: progress vs timetable", "target": 3, "history": [1], "notes": ["Assessment not yet commissioned"] },
-        { "id": "duty_of_care", "label": "Scout duty-of-care: no open HIGH/CRITICAL findings", "target": 5, "history": [2], "notes": ["Gaps identified; audit not yet completed"] },
-        { "id": "legal_employer", "label": "Legal employer: clarity and compliance", "target": 5, "history": [2], "notes": ["Currently ambiguous"] },
-        { "id": "career_path", "label": "Scout career pathway: operational", "target": 3, "history": [1], "notes": ["Not in place"] },
-        { "id": "field_infra", "label": "Field infrastructure baseline: complete and actioned", "target": 3, "history": [1], "notes": ["Not yet systematically assessed"] }
+        {
+          "id": "eawls",
+          "label": "EAWLS transition: progress vs timetable",
+          "target": 3,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Assessment not yet commissioned"
+          ]
+        },
+        {
+          "id": "duty_of_care",
+          "label": "Scout duty-of-care: no open HIGH/CRITICAL findings",
+          "target": 5,
+          "history": [
+            2
+          ],
+          "notes": [
+            "Gaps identified; audit not yet completed"
+          ]
+        },
+        {
+          "id": "legal_employer",
+          "label": "Legal employer: clarity and compliance",
+          "target": 5,
+          "history": [
+            2
+          ],
+          "notes": [
+            "Currently ambiguous"
+          ]
+        },
+        {
+          "id": "career_path",
+          "label": "Scout career pathway: operational",
+          "target": 3,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Not in place"
+          ]
+        },
+        {
+          "id": "field_infra",
+          "label": "Field infrastructure baseline: complete and actioned",
+          "target": 3,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Not yet systematically assessed"
+          ]
+        }
       ]
     },
     {
@@ -252,10 +831,50 @@ const DATA = {
       "name": "Conservation Outcomes",
       "weight": 20,
       "kpis": [
-        { "id": "elephant_mon", "label": "Elephant & wildlife: monitoring systems operational", "target": 4, "history": [3], "notes": ["Core strength — collaring and field intelligence active"] },
-        { "id": "habitat", "label": "Habitat & connectivity: protection and restoration on track", "target": 3, "history": [3], "notes": ["Active programme underway"] },
-        { "id": "hwc", "label": "Human-wildlife conflict: mitigation programme effectiveness", "target": 3, "history": [3], "notes": ["Beehive fences and community interventions active"] },
-        { "id": "community_out", "label": "Community coexistence: engagement and benefit metrics", "target": 3, "history": [2], "notes": ["Strong relationships; no formal measurement yet"] }
+        {
+          "id": "elephant_mon",
+          "label": "Elephant & wildlife: monitoring systems operational",
+          "target": 4,
+          "history": [
+            3
+          ],
+          "notes": [
+            "Core strength — collaring and field intelligence active"
+          ]
+        },
+        {
+          "id": "habitat",
+          "label": "Habitat & connectivity: protection and restoration on track",
+          "target": 3,
+          "history": [
+            3
+          ],
+          "notes": [
+            "Active programme underway"
+          ]
+        },
+        {
+          "id": "hwc",
+          "label": "Human-wildlife conflict: mitigation programme effectiveness",
+          "target": 3,
+          "history": [
+            3
+          ],
+          "notes": [
+            "Beehive fences and community interventions active"
+          ]
+        },
+        {
+          "id": "community_out",
+          "label": "Community coexistence: engagement and benefit metrics",
+          "target": 3,
+          "history": [
+            2
+          ],
+          "notes": [
+            "Strong relationships; no formal measurement yet"
+          ]
+        }
       ]
     },
     {
@@ -263,21 +882,110 @@ const DATA = {
       "name": "Communications & Partnerships",
       "weight": 10,
       "kpis": [
-        { "id": "brand", "label": "Brand architecture: implemented consistently", "target": 4, "history": [1], "notes": ["MEF/MEEP/EAWLS confusion unresolved externally"] },
-        { "id": "comms_indep", "label": "Communications: not founder-dependent", "target": 4, "history": [1], "notes": ["Very high founder dependency"] },
-        { "id": "partnerships", "label": "Key partnership agreements: formalised", "target": 4, "history": [2], "notes": ["KWS/KFS relationships strong but informal"] },
-        { "id": "content", "label": "Digital and field content pipeline: operational", "target": 3, "history": [1], "notes": ["Underdeveloped"] }
+        {
+          "id": "brand",
+          "label": "Brand architecture: implemented consistently",
+          "target": 4,
+          "history": [
+            1
+          ],
+          "notes": [
+            "MEF/MEEP/EAWLS confusion unresolved externally"
+          ]
+        },
+        {
+          "id": "comms_indep",
+          "label": "Communications: not founder-dependent",
+          "target": 4,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Very high founder dependency"
+          ]
+        },
+        {
+          "id": "partnerships",
+          "label": "Key partnership agreements: formalised",
+          "target": 4,
+          "history": [
+            2
+          ],
+          "notes": [
+            "KWS/KFS relationships strong but informal"
+          ]
+        },
+        {
+          "id": "content",
+          "label": "Digital and field content pipeline: operational",
+          "target": 3,
+          "history": [
+            1
+          ],
+          "notes": [
+            "Underdeveloped"
+          ]
+        }
       ]
     }
   ],
   "gates": [
-    { "id": "g_leadership", "label": "Leadership & Governance", "criterion": "ED/CEO filled and operating 12+ months; no single-person dependency on decisions or external relationships; governance ToR in operation.", "history": ["not_started"] },
-    { "id": "g_financial", "label": "Financial Resilience", "criterion": "Unrestricted reserves at or above Board floor; no single funder exceeds concentration limit; pilot expansion funding ring-fenced from core programme.", "history": ["not_started"] },
-    { "id": "g_kenya", "label": "Kenya Institutional Architecture", "criterion": "Legal and institutional pathway for Kenya operations documented and agreed with EAWLS; no ambiguity in employment, assets or financial authority.", "history": ["not_started"] },
-    { "id": "g_field", "label": "Field Workforce & Duty of Care", "criterion": "No open HIGH or CRITICAL duty-of-care findings; legal employer clearly established; career pathway operating for at least one annual cycle.", "history": ["not_started"] },
-    { "id": "g_impact", "label": "Impact & Evidence", "criterion": "Core Kenya programme meeting agreed outcome indicators on this Board dashboard; management decisions documented as evidence-informed; MEL system operational.", "history": ["not_started"] },
-    { "id": "g_partnerships", "label": "Partnerships & Community", "criterion": "Formal agreements in place with KWS, KFS and EAWLS; community consultation and feedback mechanisms operational; no partnership flagged as risk or constraint.", "history": ["not_started"] },
-    { "id": "g_comms", "label": "Communications & Brand", "criterion": "Communications capacity embedded in team and not founder-dependent; brand architecture consistent across all materials; field content pipeline independent.", "history": ["not_started"] }
+    {
+      "id": "g_leadership",
+      "label": "Leadership & Governance",
+      "criterion": "ED/CEO filled and operating 12+ months; no single-person dependency on decisions or external relationships; governance ToR in operation.",
+      "history": [
+        "not_started"
+      ]
+    },
+    {
+      "id": "g_financial",
+      "label": "Financial Resilience",
+      "criterion": "Unrestricted reserves at or above Board floor; no single funder exceeds concentration limit; pilot expansion funding ring-fenced from core programme.",
+      "history": [
+        "not_started"
+      ]
+    },
+    {
+      "id": "g_kenya",
+      "label": "Kenya Institutional Architecture",
+      "criterion": "Legal and institutional pathway for Kenya operations documented and agreed with EAWLS; no ambiguity in employment, assets or financial authority.",
+      "history": [
+        "not_started"
+      ]
+    },
+    {
+      "id": "g_field",
+      "label": "Field Workforce & Duty of Care",
+      "criterion": "No open HIGH or CRITICAL duty-of-care findings; legal employer clearly established; career pathway operating for at least one annual cycle.",
+      "history": [
+        "not_started"
+      ]
+    },
+    {
+      "id": "g_impact",
+      "label": "Impact & Evidence",
+      "criterion": "Core Kenya programme meeting agreed outcome indicators on this Board dashboard; management decisions documented as evidence-informed; MEL system operational.",
+      "history": [
+        "not_started"
+      ]
+    },
+    {
+      "id": "g_partnerships",
+      "label": "Partnerships & Community",
+      "criterion": "Formal agreements in place with KWS, KFS and EAWLS; community consultation and feedback mechanisms operational; no partnership flagged as risk or constraint.",
+      "history": [
+        "not_started"
+      ]
+    },
+    {
+      "id": "g_comms",
+      "label": "Communications & Brand",
+      "criterion": "Communications capacity embedded in team and not founder-dependent; brand architecture consistent across all materials; field content pipeline independent.",
+      "history": [
+        "not_started"
+      ]
+    }
   ]
 };
 /* END_DATA */
@@ -578,11 +1286,18 @@ function buildUpdatePanel() {
       <h4>Admin Password</h4>
       <label class="up-lbl">Current admin password</label>
       <input type="text" class="up-sel" id="pwChange" value="${DATA.adminPassword}" onchange="draft.adminPassword=this.value" placeholder="Change password here">
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">Password is stored in the exported HTML file. Keep this file secure.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Password is stored in the published file. Keep this file secure.</div>
+    </div>
+    <div class="up-section">
+      <h4>GitHub Publishing</h4>
+      <label class="up-lbl">Personal Access Token (fine-grained, contents:write on this repo)</label>
+      <input type="password" class="up-sel" id="ghToken" value="${DATA.githubToken}" onchange="draft.githubToken=this.value" placeholder="github_pat_…">
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Token is embedded in the published file — treat it as a secret. Scope it to <em>zeked-crate/mef-board-dashboard</em> contents only.</div>
     </div>
     <div class="up-actions">
-      <button class="btn-export" onclick="exportUpdated()">&#8681; Export Updated Dashboard</button>
-      <div class="export-note">Exports a new .html file with your changes embedded. Upload it to OneDrive to replace the current version for all Board members.</div>
+      <button class="btn-export" onclick="publishToGitHub()" id="publishBtn">&#9654; Save &amp; Publish to GitHub</button>
+      <div class="export-note" id="publishStatus">Updates go live within ~60 seconds. Board members just refresh their browser — no file upload needed.</div>
+      <button class="btn-export" onclick="exportUpdated()" style="margin-top:8px;background:#555;font-size:12px;padding:8px 16px;">&#8681; Download as backup</button>
     </div>`;
 }
 
@@ -628,45 +1343,122 @@ function addNewQuarter() {
   buildUpdatePanel();
 }
 
-// ── Export ────────────────────────────────────────────────────
-function exportUpdated() {
-  if (!draft) return;
+// ── Build updated HTML with new DATA block ────────────────────
+function buildUpdatedHTML() {
+  if (!draft) return null;
 
-  // Merge any metadata field changes
+  // Merge metadata fields
   draft.lastUpdated = document.getElementById('lastUpdated').value || draft.lastUpdated;
   draft.adminPassword = document.getElementById('pwChange').value || draft.adminPassword;
+  draft.githubToken = document.getElementById('ghToken').value || draft.githubToken;
 
-  // Get current page source and replace the DATA block
-  // We use outerHTML which faithfully preserves script content
   let html = document.documentElement.outerHTML;
-
   const marker1 = '/* BEGIN_DATA */';
   const marker2 = '/* END_DATA */';
   const start = html.indexOf(marker1);
   const end   = html.indexOf(marker2) + marker2.length;
 
   if (start === -1 || end === -1) {
-    alert('Export error: data markers not found. Please contact your administrator.');
-    return;
+    alert('Error: data markers not found. Please contact your administrator.');
+    return null;
   }
 
   const newDataBlock = `${marker1}\nconst DATA = ${JSON.stringify(draft, null, 2)};\n${marker2}`;
-  html = html.substring(0, start) + newDataBlock + html.substring(end);
+  return html.substring(0, start) + newDataBlock + html.substring(end);
+}
 
-  const latestQ = draft.quarters[draft.quarters.length - 1].replace(/\s/g, '_');
-  const fname = `MEF_KPI_Dashboard_${latestQ}.html`;
+// ── Publish to GitHub Pages ───────────────────────────────────
+async function publishToGitHub() {
+  const token = (document.getElementById('ghToken').value || draft.githubToken || '').trim();
+  if (!token) {
+    alert('Please enter your GitHub Personal Access Token in the GitHub Publishing section.');
+    return;
+  }
+
+  const html = buildUpdatedHTML();
+  if (!html) return;
+
+  const repo = draft.githubRepo || 'zeked-crate/mef-board-dashboard';
+  const file = draft.githubFile || 'index.html';
+  const apiBase = `https://api.github.com/repos/${repo}/contents/${file}`;
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json'
+  };
+
+  const btn = document.getElementById('publishBtn');
+  const status = document.getElementById('publishStatus');
+  btn.disabled = true;
+  btn.textContent = '⏳ Publishing…';
+  status.textContent = 'Fetching current file from GitHub…';
+
+  try {
+    // Step 1: get current SHA (needed for update commits)
+    const getRes = await fetch(apiBase, { headers });
+    if (!getRes.ok) {
+      const err = await getRes.json();
+      throw new Error(`GitHub GET failed: ${err.message}`);
+    }
+    const fileData = await getRes.json();
+    const sha = fileData.sha;
+
+    // Step 2: encode new content as base64
+    const encoded = btoa(unescape(encodeURIComponent(html)));
+
+    // Step 3: commit
+    status.textContent = 'Committing updated dashboard…';
+    const quarter = draft.quarters[draft.quarters.length - 1];
+    const putRes = await fetch(apiBase, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({
+        message: `Dashboard update — ${quarter} (${draft.lastUpdated})`,
+        content: encoded,
+        sha
+      })
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(`GitHub PUT failed: ${err.message}`);
+    }
+
+    // Success — update local DATA so in-session view reflects the changes
+    Object.assign(DATA, draft);
+    render();
+
+    btn.disabled = false;
+    btn.textContent = '✓ Published — refreshing in ~60s';
+    status.innerHTML = `<strong>Live at:</strong> <a href="https://${repo.split('/')[0]}.github.io/${repo.split('/')[1]}/" target="_blank">https://${repo.split('/')[0]}.github.io/${repo.split('/')[1]}/</a> — GitHub Pages rebuilds in ~60 seconds.`;
+    setTimeout(() => {
+      btn.textContent = '▶ Save & Publish to GitHub';
+    }, 8000);
+
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = '▶ Save & Publish to GitHub';
+    status.textContent = `❌ ${e.message}`;
+    console.error(e);
+  }
+}
+
+// ── Download as backup ────────────────────────────────────────
+function exportUpdated() {
+  const html = buildUpdatedHTML();
+  if (!html) return;
 
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = fname;
+  a.download = 'index.html';
   a.click();
-
-  alert(`Dashboard exported as "${fname}".\n\nUpload this file to OneDrive to replace the current version. Board members will see the updated data the next time they open the file.`);
 }
 
 // ── Init ─────────────────────────────────────────────────────
 render();
 </script>
-</body>
-</html>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true" style="visibility: visible !important;"></grammarly-desktop-integration></html>
