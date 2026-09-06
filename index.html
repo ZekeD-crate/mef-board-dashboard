@@ -1290,9 +1290,9 @@ function buildUpdatePanel() {
     </div>
     <div class="up-section">
       <h4>GitHub Publishing</h4>
-      <label class="up-lbl">Personal Access Token (fine-grained, contents:write on this repo)</label>
-      <input type="password" class="up-sel" id="ghToken" value="${DATA.githubToken}" onchange="draft.githubToken=this.value" placeholder="github_pat_…">
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">Token is embedded in the published file — treat it as a secret. Scope it to <em>zeked-crate/mef-board-dashboard</em> contents only.</div>
+      <label class="up-lbl">Personal Access Token (classic, repo scope)</label>
+      <input type="password" class="up-sel" id="ghToken" value="${localStorage.getItem('mef_gh_token')||''}" onchange="localStorage.setItem('mef_gh_token',this.value)" placeholder="ghp_…">
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Stored in <strong>your browser only</strong> — never committed to GitHub. You only need to enter this once per browser.</div>
     </div>
     <div class="up-actions">
       <button class="btn-export" onclick="publishToGitHub()" id="publishBtn">&#9654; Save &amp; Publish to GitHub</button>
@@ -1347,10 +1347,9 @@ function addNewQuarter() {
 function buildUpdatedHTML() {
   if (!draft) return null;
 
-  // Merge metadata fields
+  // Merge metadata fields (never touch githubToken — kept blank in committed file)
   draft.lastUpdated = document.getElementById('lastUpdated').value || draft.lastUpdated;
   draft.adminPassword = document.getElementById('pwChange').value || draft.adminPassword;
-  draft.githubToken = document.getElementById('ghToken').value || draft.githubToken;
 
   let html = document.documentElement.outerHTML;
   const marker1 = '/* BEGIN_DATA */';
@@ -1363,13 +1362,15 @@ function buildUpdatedHTML() {
     return null;
   }
 
-  const newDataBlock = `${marker1}\nconst DATA = ${JSON.stringify(draft, null, 2)};\n${marker2}`;
+  // Always serialize with empty token — token lives in localStorage only
+  const serialized = Object.assign({}, draft, { githubToken: '' });
+  const newDataBlock = `${marker1}\nconst DATA = ${JSON.stringify(serialized, null, 2)};\n${marker2}`;
   return html.substring(0, start) + newDataBlock + html.substring(end);
 }
 
 // ── Publish to GitHub Pages ───────────────────────────────────
 async function publishToGitHub() {
-  const token = (document.getElementById('ghToken').value || draft.githubToken || '').trim();
+  const token = (localStorage.getItem('mef_gh_token') || document.getElementById('ghToken').value || '').trim();
   if (!token) {
     alert('Please enter your GitHub Personal Access Token in the GitHub Publishing section.');
     return;
