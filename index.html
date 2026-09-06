@@ -1,2 +1,672 @@
-# mef-board-dashboard
-MEF Board Strategic Readiness Dashboard
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEF Board KPI Dashboard</title>
+<style>
+:root{--gd:#2D5016;--gm:#4A7C2F;--gl:#EAF2E3;--green:#27AE60;--amber:#D97706;--red:#C0392B;--grey:#6B7280;--bg:#F0F4EE;--card:#FFFFFF;--text:#1a1a1a;--muted:#555;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;}
+a{color:var(--gm);}
+
+/* Header */
+.hdr{background:var(--gd);color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.hdr-logo{font-size:17px;font-weight:700;letter-spacing:.5px;}
+.hdr-sub{font-size:11px;opacity:.7;margin-top:2px;}
+.hdr-right{text-align:right;}
+.q-badge{background:rgba(255,255,255,.18);padding:4px 14px;border-radius:20px;display:inline-block;font-weight:700;font-size:13px;margin-bottom:4px;}
+.hdr-meta{font-size:11px;opacity:.75;}
+
+/* Edit banner */
+.edit-banner{display:none;background:#991B1B;color:#fff;text-align:center;padding:8px 16px;font-size:13px;font-weight:700;letter-spacing:.3px;}
+.edit-banner.show{display:block;}
+
+/* Main */
+.main{max-width:1180px;margin:0 auto;padding:20px 20px 80px;}
+
+/* Overall panel */
+.overall{background:var(--card);border-radius:10px;padding:22px 28px;margin-bottom:18px;border-left:6px solid var(--gd);display:flex;align-items:center;gap:28px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.overall-num{text-align:center;min-width:90px;}
+.overall-score{font-size:52px;font-weight:900;line-height:1;}
+.overall-denom{font-size:14px;color:var(--muted);font-weight:600;}
+.overall-right{flex:1;}
+.overall-title{font-size:15px;font-weight:700;color:var(--gd);margin-bottom:6px;}
+.overall-desc{font-size:12px;color:var(--muted);margin-bottom:10px;}
+.bar-track{height:14px;background:#E5E7EB;border-radius:7px;overflow:hidden;margin-bottom:8px;}
+.bar-fill{height:100%;border-radius:7px;transition:width .6s;}
+.bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);}
+.gates-summary{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.gpill{padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;}
+.gpill-ns{background:#F3F4F6;color:#4B5563;}
+.gpill-ip{background:#FEF3C7;color:#92400E;}
+.gpill-ar{background:#FEE2E2;color:#991B1B;}
+.gpill-met{background:#D1FAE5;color:#065F46;}
+
+/* Category grid */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+@media(max-width:860px){.cat-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.cat-grid{grid-template-columns:1fr;}}
+.cat-card{background:var(--card);border-radius:10px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.08);border-top:5px solid #ccc;display:flex;flex-direction:column;}
+.cat-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.cat-name{font-weight:700;font-size:13px;color:var(--gd);line-height:1.3;}
+.cat-weight{font-size:11px;color:var(--muted);white-space:nowrap;margin-left:8px;}
+.cat-score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.cat-score-big{font-size:32px;font-weight:900;line-height:1;}
+.cat-score-sub{font-size:12px;color:var(--muted);}
+.rag-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.trend-arrow{font-size:20px;margin-left:auto;}
+.cat-bar-track{height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;margin-bottom:8px;}
+.cat-bar-fill{height:100%;border-radius:4px;transition:width .5s;}
+.kpi-toggle{font-size:11px;color:var(--gm);cursor:pointer;border:1px solid var(--gm);padding:2px 10px;border-radius:4px;background:none;margin-top:auto;}
+.kpi-toggle:hover{background:var(--gl);}
+.kpi-list{margin-top:10px;border-top:1px solid #F3F4F6;padding-top:8px;display:none;}
+.kpi-list.open{display:block;}
+.kpi-row{display:grid;grid-template-columns:1fr 30px 30px 22px;gap:4px;align-items:center;padding:5px 0;border-bottom:1px solid #F9FAF9;font-size:11.5px;}
+.kpi-row:last-child{border-bottom:none;}
+.kpi-label{line-height:1.3;color:#333;}
+.kpi-badge{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;}
+.kpi-target{font-size:10px;color:var(--muted);text-align:center;}
+.kpi-trend{font-size:15px;text-align:center;}
+
+/* Score colours */
+.sc1{background:#C0392B;}.sc2{background:#E67E22;}.sc3{background:#D97706;}.sc4{background:#27AE60;}.sc5{background:#1E8449;}
+.stc1{color:#C0392B;}.stc2{color:#E67E22;}.stc3{color:#D97706;}.stc4{color:#27AE60;}.stc5{color:#1E8449;}
+.border-red{border-top-color:#C0392B !important;}.border-amber{border-top-color:#E67E22 !important;}
+.border-lgreen{border-top-color:#82E0AA !important;}.border-green{border-top-color:#27AE60 !important;}
+
+/* Gates */
+.gates-section{background:var(--card);border-radius:10px;padding:22px 24px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:18px;}
+.sec-title{font-size:15px;font-weight:700;color:var(--gd);margin-bottom:3px;}
+.sec-sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.gates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;}
+.gate-card{padding:12px 14px;border-radius:8px;border-left:4px solid #ccc;}
+.gate-card.ns{background:#F9FAFB;border-left-color:#9CA3AF;}
+.gate-card.ip{background:#FFFBEB;border-left-color:#D97706;}
+.gate-card.ar{background:#FEF2F2;border-left-color:#C0392B;}
+.gate-card.met{background:#ECFDF5;border-left-color:#27AE60;}
+.gate-name{font-weight:700;font-size:12.5px;margin-bottom:3px;}
+.gate-ns .gate-name{color:#374151;}.gate-ip .gate-name{color:#92400E;}.gate-ar .gate-name{color:#991B1B;}.gate-met .gate-name{color:#065F46;}
+.gate-status{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.gate-criterion{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+
+/* Progress bar target line */
+.bar-target-wrap{position:relative;margin-bottom:4px;}
+.bar-target-line{position:absolute;top:-2px;bottom:-2px;width:2px;background:#9CA3AF;border-radius:1px;}
+.bar-target-label{position:absolute;top:-18px;font-size:10px;color:var(--muted);transform:translateX(-50%);}
+
+/* Footer */
+.footer{text-align:center;font-size:11px;color:var(--muted);padding:12px 0;border-top:1px solid #E5E7EB;margin-top:10px;}
+
+/* Admin btn */
+.admin-btn{position:fixed;bottom:22px;right:22px;background:var(--gd);color:#fff;border:none;padding:10px 20px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:100;}
+.admin-btn:hover{background:var(--gm);}
+.admin-btn.armed{background:#991B1B;}
+
+/* Password modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:#fff;border-radius:12px;padding:28px;width:340px;box-shadow:0 8px 32px rgba(0,0,0,.2);}
+.modal h3{color:var(--gd);font-size:16px;font-weight:700;margin-bottom:6px;}
+.modal p{color:var(--muted);font-size:13px;margin-bottom:14px;}
+.modal input[type=password]{width:100%;padding:10px 14px;border:1px solid #D1D5DB;border-radius:8px;font-size:14px;margin-bottom:10px;}
+.modal input:focus{outline:2px solid var(--gm);border-color:transparent;}
+.modal-err{color:#C0392B;font-size:12px;margin-bottom:8px;display:none;}
+.modal-btns{display:flex;gap:8px;}
+.btn{padding:9px 18px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;}
+.btn-p{background:var(--gd);color:#fff;}.btn-p:hover{background:var(--gm);}
+.btn-s{background:#F3F4F6;color:var(--text);}
+
+/* Update panel */
+.up-panel{display:none;position:fixed;top:0;right:0;bottom:0;width:440px;background:#fff;box-shadow:-4px 0 20px rgba(0,0,0,.15);z-index:150;overflow-y:auto;}
+.up-panel.open{display:block;}
+.up-hdr{background:var(--gd);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1;}
+.up-hdr h3{font-size:14px;font-weight:700;}
+.up-close{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px;}
+.up-body{padding:18px;}
+.up-section{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #F3F4F6;}
+.up-section:last-child{border-bottom:none;}
+.up-section h4{font-size:12px;font-weight:700;color:var(--gd);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;}
+.up-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;display:block;}
+.up-sel{width:100%;padding:7px 9px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;margin-bottom:8px;}
+.up-cat-name{font-weight:700;font-size:12px;color:var(--gd);margin:10px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--gl);}
+.up-kpi-row{margin-bottom:10px;}
+.up-kpi-lbl{font-size:11px;color:#444;margin-bottom:3px;}
+.up-kpi-ctrl{display:flex;gap:6px;align-items:center;}
+.up-kpi-ctrl select{flex:1;padding:6px 8px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;}
+.up-note{width:100%;padding:5px 8px;border:1px solid #E5E7EB;border-radius:5px;font-size:11px;color:var(--muted);resize:none;margin-top:3px;}
+.up-actions{position:sticky;bottom:0;background:#fff;padding:14px 0 0;border-top:1px solid #E5E7EB;}
+.btn-export{width:100%;padding:12px;background:var(--gd);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:6px;}
+.btn-export:hover{background:var(--gm);}
+.export-note{font-size:11px;color:var(--muted);text-align:center;padding:0 4px;}
+
+@media print{
+  .admin-btn,.up-panel,.edit-banner,.kpi-toggle{display:none !important;}
+  .kpi-list{display:block !important;}
+  body{background:#fff;}
+  .overall,.cat-card,.gates-section{box-shadow:none;border:1px solid #E5E7EB;}
+}
+</style>
+</head>
+<body>
+
+<div class="edit-banner" id="editBanner">&#9998; ADMIN EDIT MODE — changes are NOT saved until you click "Export Updated Dashboard"</div>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-logo">MOUNT ELGON FOUNDATION</div>
+    <div class="hdr-sub">Board KPI Dashboard &nbsp;|&nbsp; Strategic Review 2026–2030</div>
+  </div>
+  <div class="hdr-right">
+    <div class="q-badge" id="qBadge">Q3 2026</div>
+    <div class="hdr-meta">Last updated: <span id="lastUpdatedTxt"></span></div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="overall" id="overallPanel"></div>
+  <div class="cat-grid" id="catGrid"></div>
+  <div class="gates-section">
+    <div class="sec-title">Horizon 2 Readiness Gates</div>
+    <div class="sec-sub">All seven criteria must be met before the Board votes to trigger Horizon 2 (Oct 2028). Updated quarterly alongside KPIs.</div>
+    <div class="gates-grid" id="gatesGrid"></div>
+  </div>
+  <div class="footer">MEF Strategic Review 2026–2030 &nbsp;·&nbsp; Confidential — Board use only &nbsp;·&nbsp; <a href="https://zeked-crate.github.io/mef-board-dashboard/" style="color:var(--gm)">zeked-crate.github.io/mef-board-dashboard</a> &nbsp;·&nbsp; Queries: <a href="mailto:zeke@mountelgonfoundation.org.uk" style="color:var(--gm)">zeke@mountelgonfoundation.org.uk</a></div>
+</div>
+
+<button class="admin-btn" id="adminBtn" onclick="openAdmin()">&#128274; Admin</button>
+
+<!-- Password modal -->
+<div class="overlay" id="pwOverlay">
+  <div class="modal">
+    <h3>Admin Access</h3>
+    <p>Enter the admin password to access the quarterly update panel. Only the designated administrator should use this mode.</p>
+    <div class="modal-err" id="pwErr">Incorrect password. Please try again.</div>
+    <input type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="modal-btns">
+      <button class="btn btn-p" onclick="checkPw()">Unlock</button>
+      <button class="btn btn-s" onclick="closeAdmin()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Update panel -->
+<div class="up-panel" id="upPanel">
+  <div class="up-hdr">
+    <h3>&#128393; Quarterly Update Panel</h3>
+    <button class="up-close" onclick="lockAdmin()">&#128274; Lock &amp; Close</button>
+  </div>
+  <div class="up-body" id="upBody"></div>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DATA — updated each quarter via the Admin Export function.
+// Do not edit manually. Use Admin mode and Export Updated Dashboard.
+/* BEGIN_DATA */
+const DATA = {
+  "adminPassword": "MEF2026",
+  "lastUpdated": "September 2026",
+  "horizon1Target": 75,
+  "horizon1End": "Q4 2028",
+  "quarters": ["Q3 2026"],
+  "categories": [
+    {
+      "id": "leadership",
+      "name": "Leadership & Governance",
+      "weight": 25,
+      "kpis": [
+        { "id": "succession", "label": "Succession plan: adopted and tested", "target": 4, "history": [1], "notes": ["Baseline — no plan in place"] },
+        { "id": "decision_rights", "label": "Decision rights: distributed and operating", "target": 4, "history": [1], "notes": ["All authority runs through founder and Chair"] },
+        { "id": "board_comp", "label": "Board composition: Kenyan representation and diversity", "target": 4, "history": [1], "notes": ["No Kenyan trustee; limited diversity"] },
+        { "id": "gov_tor", "label": "Governance terms of reference: in operation", "target": 5, "history": [1], "notes": ["Not yet adopted"] },
+        { "id": "key_person", "label": "Key-person dependencies: eliminated", "target": 4, "history": [1], "notes": ["High dependency on founder and Chris Powles"] }
+      ]
+    },
+    {
+      "id": "financial",
+      "name": "Financial Resilience",
+      "weight": 25,
+      "kpis": [
+        { "id": "reserves", "label": "Unrestricted reserves vs Board-agreed floor", "target": 4, "history": [1], "notes": ["Projected negative by Dec 2026 (approx -$6k)"] },
+        { "id": "concentration", "label": "Funder concentration: under Board-agreed limit", "target": 4, "history": [2], "notes": ["High concentration — limit not yet set"] },
+        { "id": "income_trend", "label": "Income trend: year-on-year movement", "target": 3, "history": [2], "notes": ["$181k (2024) → $163k (2025) → $138k (2026f)"] },
+        { "id": "unrestricted", "label": "Unrestricted income as % of total", "target": 3, "history": [2], "notes": ["Proportion not yet benchmarked"] },
+        { "id": "new_funders", "label": "New institutional funders: in pipeline or secured", "target": 3, "history": [1], "notes": ["None identified at baseline"] }
+      ]
+    },
+    {
+      "id": "kenya",
+      "name": "Kenya Operations & Field",
+      "weight": 20,
+      "kpis": [
+        { "id": "eawls", "label": "EAWLS transition: progress vs timetable", "target": 3, "history": [1], "notes": ["Assessment not yet commissioned"] },
+        { "id": "duty_of_care", "label": "Scout duty-of-care: no open HIGH/CRITICAL findings", "target": 5, "history": [2], "notes": ["Gaps identified; audit not yet completed"] },
+        { "id": "legal_employer", "label": "Legal employer: clarity and compliance", "target": 5, "history": [2], "notes": ["Currently ambiguous"] },
+        { "id": "career_path", "label": "Scout career pathway: operational", "target": 3, "history": [1], "notes": ["Not in place"] },
+        { "id": "field_infra", "label": "Field infrastructure baseline: complete and actioned", "target": 3, "history": [1], "notes": ["Not yet systematically assessed"] }
+      ]
+    },
+    {
+      "id": "conservation",
+      "name": "Conservation Outcomes",
+      "weight": 20,
+      "kpis": [
+        { "id": "elephant_mon", "label": "Elephant & wildlife: monitoring systems operational", "target": 4, "history": [3], "notes": ["Core strength — collaring and field intelligence active"] },
+        { "id": "habitat", "label": "Habitat & connectivity: protection and restoration on track", "target": 3, "history": [3], "notes": ["Active programme underway"] },
+        { "id": "hwc", "label": "Human-wildlife conflict: mitigation programme effectiveness", "target": 3, "history": [3], "notes": ["Beehive fences and community interventions active"] },
+        { "id": "community_out", "label": "Community coexistence: engagement and benefit metrics", "target": 3, "history": [2], "notes": ["Strong relationships; no formal measurement yet"] }
+      ]
+    },
+    {
+      "id": "comms",
+      "name": "Communications & Partnerships",
+      "weight": 10,
+      "kpis": [
+        { "id": "brand", "label": "Brand architecture: implemented consistently", "target": 4, "history": [1], "notes": ["MEF/MEEP/EAWLS confusion unresolved externally"] },
+        { "id": "comms_indep", "label": "Communications: not founder-dependent", "target": 4, "history": [1], "notes": ["Very high founder dependency"] },
+        { "id": "partnerships", "label": "Key partnership agreements: formalised", "target": 4, "history": [2], "notes": ["KWS/KFS relationships strong but informal"] },
+        { "id": "content", "label": "Digital and field content pipeline: operational", "target": 3, "history": [1], "notes": ["Underdeveloped"] }
+      ]
+    }
+  ],
+  "gates": [
+    { "id": "g_leadership", "label": "Leadership & Governance", "criterion": "ED/CEO filled and operating 12+ months; no single-person dependency on decisions or external relationships; governance ToR in operation.", "history": ["not_started"] },
+    { "id": "g_financial", "label": "Financial Resilience", "criterion": "Unrestricted reserves at or above Board floor; no single funder exceeds concentration limit; pilot expansion funding ring-fenced from core programme.", "history": ["not_started"] },
+    { "id": "g_kenya", "label": "Kenya Institutional Architecture", "criterion": "Legal and institutional pathway for Kenya operations documented and agreed with EAWLS; no ambiguity in employment, assets or financial authority.", "history": ["not_started"] },
+    { "id": "g_field", "label": "Field Workforce & Duty of Care", "criterion": "No open HIGH or CRITICAL duty-of-care findings; legal employer clearly established; career pathway operating for at least one annual cycle.", "history": ["not_started"] },
+    { "id": "g_impact", "label": "Impact & Evidence", "criterion": "Core Kenya programme meeting agreed outcome indicators on this Board dashboard; management decisions documented as evidence-informed; MEL system operational.", "history": ["not_started"] },
+    { "id": "g_partnerships", "label": "Partnerships & Community", "criterion": "Formal agreements in place with KWS, KFS and EAWLS; community consultation and feedback mechanisms operational; no partnership flagged as risk or constraint.", "history": ["not_started"] },
+    { "id": "g_comms", "label": "Communications & Brand", "criterion": "Communications capacity embedded in team and not founder-dependent; brand architecture consistent across all materials; field content pipeline independent.", "history": ["not_started"] }
+  ]
+};
+/* END_DATA */
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ── Helpers ──────────────────────────────────────────────────
+let editMode = false;
+let draft = null; // working copy when in edit mode
+
+function currentQIdx() { return DATA.quarters.length - 1; }
+function currentQ()    { return DATA.quarters[currentQIdx()]; }
+function kpiCurrent(k) { return k.history[k.history.length - 1]; }
+function kpiPrev(k)    { return k.history.length > 1 ? k.history[k.history.length - 2] : null; }
+function gateCurrent(g){ return g.history[g.history.length - 1]; }
+
+function avg(arr) { return arr.reduce((a,b)=>a+b,0)/arr.length; }
+
+function catAvg(cat) {
+  return avg(cat.kpis.map(k => kpiCurrent(k)));
+}
+
+function overallScore(d) {
+  const cats = d || DATA;
+  let score = 0;
+  (cats.categories || DATA.categories).forEach(c => {
+    const a = avg(c.kpis.map(k => kpiCurrent(k)));
+    score += a * (c.weight / 100);
+  });
+  return Math.round(score * 20); // 0–100
+}
+
+function ragClass(score) {
+  if (score < 2)   return { dot:'bg-red', border:'border-red', text:'stc1', label:'Critical' };
+  if (score < 3)   return { dot:'bg-amber', border:'border-amber', text:'stc2', label:'Developing' };
+  if (score < 4)   return { dot:'bg-lgreen', border:'border-lgreen', text:'stc4', label:'Good' };
+  return               { dot:'bg-green', border:'border-green', text:'stc5', label:'Strong' };
+}
+
+function scoreClass(s) { return 'sc'+Math.min(5,Math.max(1,Math.round(s))); }
+function scoreTextClass(s) { return 'stc'+Math.min(5,Math.max(1,Math.round(s))); }
+
+function trendArrow(current, prev) {
+  if (prev === null) return '<span style="color:#9CA3AF">—</span>';
+  if (current > prev) return '<span style="color:#27AE60">&#8679;</span>';
+  if (current < prev) return '<span style="color:#C0392B">&#8681;</span>';
+  return '<span style="color:#9CA3AF">&#8680;</span>';
+}
+
+function gateClass(status) {
+  return { not_started:'ns', in_progress:'ip', at_risk:'ar', met:'met' }[status] || 'ns';
+}
+function gateLabel(status) {
+  return { not_started:'Not Started', in_progress:'In Progress', at_risk:'At Risk', met:'Met' }[status] || 'Not Started';
+}
+function gatePillClass(status) {
+  return { not_started:'gpill-ns', in_progress:'gpill-ip', at_risk:'gpill-ar', met:'gpill-met' }[status] || 'gpill-ns';
+}
+
+function barColor(score) {
+  if (score < 20)  return '#C0392B';
+  if (score < 45)  return '#E67E22';
+  if (score < 65)  return '#D97706';
+  if (score < 80)  return '#27AE60';
+  return '#1E8449';
+}
+
+// ── Render ───────────────────────────────────────────────────
+function render() {
+  document.getElementById('qBadge').textContent = currentQ();
+  document.getElementById('lastUpdatedTxt').textContent = DATA.lastUpdated;
+
+  renderOverall();
+  renderCategories();
+  renderGates();
+}
+
+function renderOverall() {
+  const score = overallScore();
+  const target = DATA.horizon1Target;
+  const pct = Math.round((score / 100) * 100);
+  const targetPct = target;
+  const color = barColor(score);
+
+  const metGates = DATA.gates.filter(g => gateCurrent(g) === 'met').length;
+  const inProgGates = DATA.gates.filter(g => gateCurrent(g) === 'in_progress').length;
+  const atRiskGates = DATA.gates.filter(g => gateCurrent(g) === 'at_risk').length;
+  const nsGates = DATA.gates.filter(g => gateCurrent(g) === 'not_started').length;
+
+  let gSummary = '';
+  if (nsGates)   gSummary += `<span class="gpill gpill-ns">${nsGates} Not Started</span>`;
+  if (inProgGates) gSummary += `<span class="gpill gpill-ip">${inProgGates} In Progress</span>`;
+  if (atRiskGates) gSummary += `<span class="gpill gpill-ar">${atRiskGates} At Risk</span>`;
+  if (metGates)  gSummary += `<span class="gpill gpill-met">${metGates}/${DATA.gates.length} Gates Met</span>`;
+
+  document.getElementById('overallPanel').innerHTML = `
+    <div class="overall-num">
+      <div class="overall-score" style="color:${color}">${score}</div>
+      <div class="overall-denom">/ 100</div>
+    </div>
+    <div class="overall-right">
+      <div class="overall-title">Overall Institutional Health Index</div>
+      <div class="overall-desc">Weighted composite across 5 categories &nbsp;·&nbsp; Horizon 1 target: <strong>${target}/100</strong> by ${DATA.horizon1End}</div>
+      <div class="bar-target-wrap">
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%;background:${color}"></div>
+        </div>
+        <div class="bar-target-line" style="left:${targetPct}%" title="H1 Target"></div>
+        <div class="bar-target-label" style="left:${targetPct}%">Target ${target}</div>
+      </div>
+      <div class="bar-labels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      <div class="gates-summary" style="margin-top:14px">${gSummary}</div>
+    </div>`;
+}
+
+function renderCategories() {
+  const grid = document.getElementById('catGrid');
+  grid.innerHTML = '';
+  DATA.categories.forEach((cat, ci) => {
+    const a = catAvg(cat);
+    const rag = ragClass(a);
+    const borderClass = rag.border;
+    const scoreColorClass = scoreTextClass(a);
+    const catScore = (a * cat.weight / 100 * 20).toFixed(1);
+    const pct = Math.round((a / 5) * 100);
+    const targetPct = Math.round((avg(cat.kpis.map(k=>k.target)) / 5) * 100);
+    const dotColor = { 'border-red':'#C0392B','border-amber':'#E67E22','border-lgreen':'#82E0AA','border-green':'#27AE60' }[borderClass] || '#ccc';
+
+    // Trend: compare to previous quarter
+    const prevAvg = cat.kpis[0].history.length > 1
+      ? avg(cat.kpis.map(k => k.history[k.history.length - 2]))
+      : null;
+    const trend = prevAvg === null ? '—' :
+      a > prevAvg ? '<span style="color:#27AE60">&#8679;</span>' :
+      a < prevAvg ? '<span style="color:#C0392B">&#8681;</span>' :
+      '<span style="color:#9CA3AF">&#8680;</span>';
+
+    let kpiRows = cat.kpis.map(k => {
+      const cs = kpiCurrent(k);
+      const ps = kpiPrev(k);
+      return `<div class="kpi-row">
+        <div class="kpi-label">${k.label}</div>
+        <div class="kpi-badge ${scoreClass(cs)}">${cs}</div>
+        <div class="kpi-target">/ ${k.target}</div>
+        <div class="kpi-trend">${trendArrow(cs, ps)}</div>
+      </div>`;
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = `cat-card ${borderClass}`;
+    card.innerHTML = `
+      <div class="cat-head">
+        <div class="cat-name">${cat.name}</div>
+        <div class="cat-weight">Wt: ${cat.weight}%</div>
+      </div>
+      <div class="cat-score-row">
+        <div class="cat-score-big ${scoreColorClass}">${a.toFixed(1)}</div>
+        <div class="cat-score-sub"><span style="font-size:10px;color:var(--muted)">/5 avg</span><br><span style="font-size:11px;color:var(--muted)">${catScore} pts weighted</span></div>
+        <div class="rag-dot" style="background:${dotColor};margin-left:auto"></div>
+        <div class="trend-arrow">${trend}</div>
+      </div>
+      <div class="bar-target-wrap">
+        <div class="cat-bar-track">
+          <div class="cat-bar-fill" style="width:${pct}%;background:${dotColor}"></div>
+        </div>
+      </div>
+      <button class="kpi-toggle" onclick="toggleKPI(this)">Show KPIs &#9660;</button>
+      <div class="kpi-list">${kpiRows}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderGates() {
+  const grid = document.getElementById('gatesGrid');
+  grid.innerHTML = '';
+  DATA.gates.forEach(g => {
+    const status = gateCurrent(g);
+    const cls = gateClass(status);
+    const lbl = gateLabel(status);
+    const div = document.createElement('div');
+    div.className = `gate-card ${cls}`;
+    div.innerHTML = `
+      <div class="gate-name">${g.label}</div>
+      <div class="gate-status">${lbl}</div>
+      <div class="gate-criterion">${g.criterion}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+function toggleKPI(btn) {
+  const list = btn.nextElementSibling;
+  const open = list.classList.toggle('open');
+  btn.textContent = open ? 'Hide KPIs &#9650;' : 'Show KPIs &#9660;';
+  btn.innerHTML = open ? 'Hide KPIs &#9650;' : 'Show KPIs &#9660;';
+}
+
+// ── Admin ─────────────────────────────────────────────────────
+function openAdmin() {
+  if (editMode) { document.getElementById('upPanel').classList.toggle('open'); return; }
+  document.getElementById('pwOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('pwInput').focus(), 100);
+}
+
+function checkPw() {
+  const val = document.getElementById('pwInput').value;
+  if (val === DATA.adminPassword) {
+    document.getElementById('pwOverlay').classList.remove('open');
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwErr').style.display = 'none';
+    activateAdmin();
+  } else {
+    document.getElementById('pwErr').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+
+function closeAdmin() {
+  document.getElementById('pwOverlay').classList.remove('open');
+  document.getElementById('pwInput').value = '';
+  document.getElementById('pwErr').style.display = 'none';
+}
+
+function activateAdmin() {
+  editMode = true;
+  draft = JSON.parse(JSON.stringify(DATA)); // deep copy
+  document.getElementById('editBanner').classList.add('show');
+  document.getElementById('adminBtn').classList.add('armed');
+  document.getElementById('adminBtn').textContent = '✎ Update Panel';
+  buildUpdatePanel();
+  document.getElementById('upPanel').classList.add('open');
+}
+
+function lockAdmin() {
+  editMode = false;
+  draft = null;
+  document.getElementById('editBanner').classList.remove('show');
+  document.getElementById('adminBtn').classList.remove('armed');
+  document.getElementById('adminBtn').innerHTML = '&#128274; Admin';
+  document.getElementById('upPanel').classList.remove('open');
+}
+
+// ── Build update panel ────────────────────────────────────────
+function buildUpdatePanel() {
+  const body = document.getElementById('upBody');
+  const currentQStr = currentQ();
+  const qOptions = DATA.quarters.map((q,i) =>
+    `<option value="${i}" ${i===currentQIdx()?'selected':''}>${q}</option>`).join('');
+
+  let catHTML = DATA.categories.map((cat, ci) => {
+    let kpiHTML = cat.kpis.map((k, ki) => {
+      const v = kpiCurrent(k);
+      const opts = [1,2,3,4,5].map(n =>
+        `<option value="${n}" ${n===v?'selected':''}>${n} – ${['','Critical','Poor','Developing','Good','Strong'][n]}</option>`).join('');
+      return `<div class="up-kpi-row">
+        <div class="up-kpi-lbl">${k.label}</div>
+        <div class="up-kpi-ctrl">
+          <select id="kpi_${ci}_${ki}" onchange="draftKPI(${ci},${ki},this.value)">${opts}</select>
+        </div>
+        <textarea class="up-note" id="note_${ci}_${ki}" rows="1" placeholder="Note (optional)" onchange="draftNote(${ci},${ki},this.value)">${k.notes[k.notes.length-1]||''}</textarea>
+      </div>`;
+    }).join('');
+    return `<div class="up-cat-name">${cat.name} (${cat.weight}%)</div>${kpiHTML}`;
+  }).join('');
+
+  let gateHTML = DATA.gates.map((g, gi) => {
+    const v = gateCurrent(g);
+    const opts = [
+      ['not_started','Not Started'],['in_progress','In Progress'],
+      ['at_risk','At Risk'],['met','Met ✓']
+    ].map(([val,lbl]) => `<option value="${val}" ${val===v?'selected':''}>${lbl}</option>`).join('');
+    return `<div class="up-kpi-row">
+      <div class="up-kpi-lbl">${g.label}</div>
+      <select class="up-sel" id="gate_${gi}" onchange="draftGate(${gi},this.value)">${opts}</select>
+    </div>`;
+  }).join('');
+
+  body.innerHTML = `
+    <div class="up-section">
+      <h4>Quarter</h4>
+      <label class="up-lbl">Updating data for:</label>
+      <select class="up-sel" id="qSel" onchange="changeQuarter(this.value)">${qOptions}</select>
+      <button class="btn btn-p" style="width:100%;margin-top:4px" onclick="addNewQuarter()">+ Add New Quarter</button>
+    </div>
+    <div class="up-section">
+      <h4>KPI Scores (1–5)</h4>
+      ${catHTML}
+    </div>
+    <div class="up-section">
+      <h4>Readiness Gate Status</h4>
+      ${gateHTML}
+    </div>
+    <div class="up-section">
+      <h4>Dashboard Metadata</h4>
+      <label class="up-lbl">Last Updated (shown in header)</label>
+      <input type="text" class="up-sel" id="lastUpdated" value="${DATA.lastUpdated}" onchange="draft.lastUpdated=this.value" placeholder="e.g. December 2026">
+    </div>
+    <div class="up-section">
+      <h4>Admin Password</h4>
+      <label class="up-lbl">Current admin password</label>
+      <input type="text" class="up-sel" id="pwChange" value="${DATA.adminPassword}" onchange="draft.adminPassword=this.value" placeholder="Change password here">
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Password is stored in the exported HTML file. Keep this file secure.</div>
+    </div>
+    <div class="up-actions">
+      <button class="btn-export" onclick="exportUpdated()">&#8681; Export Updated Dashboard</button>
+      <div class="export-note">Exports a new .html file with your changes embedded. Upload it to OneDrive to replace the current version for all Board members.</div>
+    </div>`;
+}
+
+function draftKPI(ci, ki, val) {
+  if (!draft) return;
+  draft.categories[ci].kpis[ki].history[draft.categories[ci].kpis[ki].history.length - 1] = parseInt(val);
+}
+
+function draftNote(ci, ki, val) {
+  if (!draft) return;
+  const notes = draft.categories[ci].kpis[ki].notes;
+  notes[notes.length - 1] = val;
+}
+
+function draftGate(gi, val) {
+  if (!draft) return;
+  draft.gates[gi].history[draft.gates[gi].history.length - 1] = val;
+}
+
+function changeQuarter(idx) {
+  // Switch which quarter's data is being edited
+  // For now, always editing the latest — this can be extended
+}
+
+function addNewQuarter() {
+  const qStr = prompt('Enter new quarter label (e.g. Q4 2026):');
+  if (!qStr || !qStr.trim()) return;
+  draft.quarters.push(qStr.trim());
+  draft.categories.forEach(cat => {
+    cat.kpis.forEach(k => {
+      const last = k.history[k.history.length - 1];
+      k.history.push(last); // copy forward
+      k.notes.push('');
+    });
+  });
+  draft.gates.forEach(g => {
+    g.history.push(g.history[g.history.length - 1]);
+  });
+  alert(`Quarter "${qStr.trim()}" added. Update the scores below and export when done.`);
+  // Rebuild panel
+  // Copy draft back temporarily so panel reflects new quarter
+  Object.assign(DATA, draft);
+  buildUpdatePanel();
+}
+
+// ── Export ────────────────────────────────────────────────────
+function exportUpdated() {
+  if (!draft) return;
+
+  // Merge any metadata field changes
+  draft.lastUpdated = document.getElementById('lastUpdated').value || draft.lastUpdated;
+  draft.adminPassword = document.getElementById('pwChange').value || draft.adminPassword;
+
+  // Get current page source and replace the DATA block
+  // We use outerHTML which faithfully preserves script content
+  let html = document.documentElement.outerHTML;
+
+  const marker1 = '/* BEGIN_DATA */';
+  const marker2 = '/* END_DATA */';
+  const start = html.indexOf(marker1);
+  const end   = html.indexOf(marker2) + marker2.length;
+
+  if (start === -1 || end === -1) {
+    alert('Export error: data markers not found. Please contact your administrator.');
+    return;
+  }
+
+  const newDataBlock = `${marker1}\nconst DATA = ${JSON.stringify(draft, null, 2)};\n${marker2}`;
+  html = html.substring(0, start) + newDataBlock + html.substring(end);
+
+  const latestQ = draft.quarters[draft.quarters.length - 1].replace(/\s/g, '_');
+  const fname = `MEF_KPI_Dashboard_${latestQ}.html`;
+
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fname;
+  a.click();
+
+  alert(`Dashboard exported as "${fname}".\n\nUpload this file to OneDrive to replace the current version. Board members will see the updated data the next time they open the file.`);
+}
+
+// ── Init ─────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
